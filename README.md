@@ -1,7 +1,7 @@
 # Game-Dev-Group-14
 CS 4423
 
-Current worklist:
+Workdump:
 
 [ ] Terrain for stages, with 3 rotating stages with unique pathfinding for the AI.
 

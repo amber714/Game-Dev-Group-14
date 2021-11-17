@@ -12,3 +12,5 @@ Current worklist:
 [ ] Adjusted 3rd person character controller for camera, 3rd person shooter.
 
 [ ] Animation and models for the AI and player.
+
+[ ] UI with abilities/cooldowns/stats/etc.

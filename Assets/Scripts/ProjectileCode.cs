@@ -24,9 +24,8 @@ public class ProjectileCode : MonoBehaviour
 		
 		moveDirection = Vector3.zero;
 		
-		if (Vector3.Distance(enemy.transform.position, this.transform.position) < 50) {
+		if (Vector3.Distance(enemy.transform.position, this.transform.position) < 100) {
             Vector3 direction = enemy.transform.position - this.transform.position;
-            direction.y = 0;
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
 			if (direction.magnitude > .8)
                 moveDirection = direction.normalized;

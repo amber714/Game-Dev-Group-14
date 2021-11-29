@@ -74,8 +74,6 @@ GameObject:
   - component: {fileID: 3735317448597701846}
   - component: {fileID: 4947527448521723149}
   - component: {fileID: 3291416727986621409}
-  - component: {fileID: 5992416304692770395}
-  - component: {fileID: 6142429369909129652}
   - component: {fileID: 5567328394386802089}
   - component: {fileID: 4291690043583602593}
   m_Layer: 0
@@ -131,37 +129,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5992416304692770395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2773370798447806278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fa5cc58ac847945b1d150e8bbb3997, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileEnemy: {fileID: 5500031829221597301, guid: 6739c47b7e4f26e4d80e25abfb55b3ac, type: 3}
---- !u!114 &6142429369909129652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2773370798447806278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ecb6b2901b2a2945933c27a3d71f2c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 5
-  enemyValue: 1
-  healthBar: {fileID: 1025459495686690718}
-  player: {fileID: 0}
-  gameController: {fileID: 0}
 --- !u!195 &5567328394386802089
 NavMeshAgent:
   m_ObjectHideFlags: 0

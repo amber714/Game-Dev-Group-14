@@ -16,6 +16,11 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject powerup3;
 	[SerializeField] private GameObject powerup4;
 	
+	[SerializeField] private GameObject powerup1_icon;
+	[SerializeField] private GameObject powerup2_icon;
+	[SerializeField] private GameObject powerup3_icon;
+	[SerializeField] private GameObject powerup4_icon;
+	
 	[SerializeField] private Text waveText;
 	[SerializeField] private Text enemyText;
 	[SerializeField] private Text coinsText;
@@ -32,7 +37,7 @@ public class GameController : MonoBehaviour {
 	public int player_currentHealth = 100;
 	public int player_maxHealth = 100;
 	public int player_speed = 5;
-	public int player_powerupEquip = 0; //Powerups are [0,1,2] ... 0: none, 1: summon turret, 2: bombs, 3: teleport
+	public int player_powerupEquip = 0; //Powerups are [0,1,2] ... 0: none, 1: summon turret, 2: random, 3: speed boost, 4: bombs
 	public float player_jump = 8.0F;
 	public float player_gravity = 20.0F;
 	

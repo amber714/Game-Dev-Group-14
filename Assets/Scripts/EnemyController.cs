@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 	
-	[SerializeField] private int enemy_currentHealth;
-	[SerializeField] private int enemy_maxHealth;
+	[SerializeField] private float enemy_currentHealth;
+	[SerializeField] private float enemy_maxHealth;
 	[SerializeField] private int enemy_value;
 	[SerializeField] private GameObject enemy_healthBar;
 	
@@ -30,12 +30,23 @@ public class EnemyController : MonoBehaviour {
         
 		agent.SetDestination(enemy_targetPlayer.transform.position); 
 		
-		enemy_healthBar.transform.localScale = new Vector3((enemy_currentHealth / enemy_maxHealth), enemy_healthBar.transform.localScale.y, enemy_healthBar.transform.localScale.z);
+		enemy_healthBar.transform.localScale = new Vector3((enemy_currentHealth / enemy_maxHealth), 1, 1);
 		if (enemy_currentHealth <= 0) {
 			Destroy(gameObject);
 			gameController.game_enemyRemaining = gameController.game_enemyRemaining - 1;
 		}
-    
+		
+	}
+	
+	private void OnTriggerEnter(Collider other) {
+		
+        if (other.gameObject.tag == "Projectile") {
+			
+			Destroy(other.gameObject);
+			this.enemy_currentHealth -= 5;
+			
+        }
+		
 	}
 	
 }

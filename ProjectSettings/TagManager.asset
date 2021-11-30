@@ -9,7 +9,10 @@ TagManager:
   - Enemy
   - Projectile
   - Explosion
-  - EnemyProjectile
+  - powerup_random
+  - powerup_speed
+  - powerup_tower
+  - powerup_bombs
   layers:
   - Default
   - TransparentFX

@@ -60,8 +60,8 @@ Transform:
   m_Children:
   - {fileID: 2882807109181468292}
   - {fileID: 7196206162640641689}
-  m_Father: {fileID: 3485747780172527130}
-  m_RootOrder: 2
+  m_Father: {fileID: 3735317448597701846}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2773370798447806278
 GameObject:
@@ -95,6 +95,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8924868867202938539}
   - {fileID: 3485747780172527130}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,10 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23508a23956fa14ba31b01d8f0db476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_currentHealth: 0
-  enemy_maxHealth: 0
-  enemy_value: 0
-  enemy_healthBar: {fileID: 0}
+  enemy_currentHealth: 10
+  enemy_maxHealth: 10
+  enemy_value: 2
+  enemy_healthBar: {fileID: 1025459495686690718}
   enemy_targetPlayer: {fileID: 0}
   gameController: {fileID: 0}
 --- !u!54 &4947527448521723149
@@ -277,7 +278,7 @@ GameObject:
   - component: {fileID: 7534933690242037674}
   m_Layer: 0
   m_Name: enemyBody
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -295,9 +296,8 @@ Transform:
   m_Children:
   - {fileID: 1354353659146477262}
   - {fileID: 6558270554873326535}
-  - {fileID: 8924868867202938539}
   m_Father: {fileID: 3735317448597701846}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5139740499231969647
 MeshFilter:

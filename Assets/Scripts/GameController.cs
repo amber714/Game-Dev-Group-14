@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour {
 	public int player_currentHealth = 100;
 	public int player_maxHealth = 100;
 	public int player_speed = 5;
+	public int player_powerupEquip = 0; //Powerups are [0,1,2] ... 0: none, 1: summon turret, 2: bombs, 3: teleport
 	public float player_jump = 8.0F;
 	public float player_gravity = 20.0F;
 	

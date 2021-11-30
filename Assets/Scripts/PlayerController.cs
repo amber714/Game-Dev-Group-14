@@ -44,5 +44,34 @@ public class PlayerController : MonoBehaviour {
 		
     }
 	
+	private void OnTriggerEnter(Collider other)
+    {
+		if (other.gameObject.tag == "HealthPowerup")
+        {
+			powerupSound.Play();
+			this.currentHealth += 25;
+			Destroy(other.gameObject);
+        }
+		if (other.gameObject.tag == "JumpPowerup")
+        {
+			powerupSound.Play();
+			gameController.jump += 1;
+			Destroy(other.gameObject);
+        }
+		if (other.gameObject.tag == "SpeedPowerup")
+        {
+			powerupSound.Play();
+			gameController.speed += 1;
+			Destroy(other.gameObject);
+        }
+		if (other.gameObject.tag == "BombPowerup")
+        {
+			powerupSound.Play();
+			for (int i = 0; i < 10; i++){
+				Instantiate(projectile4, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z), Quaternion.identity);
+			}
+			Destroy(other.gameObject);
+        }
+	}
 	
 }

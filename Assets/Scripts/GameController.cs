@@ -28,9 +28,9 @@ public class GameController : MonoBehaviour {
 	
 	public int game_coins;
 	public int game_wave = 1;
-	public int game_playerHealth = 100;
-	public int game_playerMaxHealth = 100;
 	
+	public int player_currentHealth = 100;
+	public int player_maxHealth = 100;
 	public int player_speed = 5;
 	public float player_jump = 8.0F;
 	public float player_gravity = 20.0F;
@@ -59,9 +59,12 @@ public class GameController : MonoBehaviour {
 	void Update() {
 		
 		coinsText.text = "" + game_coins;
-		healthText.text = "" + game_playerHealth;
+		healthText.text = "" + player_currentHealth;
 		
 		if (game_gameState == 0) {
+			
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = false;
 			
 			if (game_time_countdown > 0) {
 				waveText.text = "Time to start: " + (int)game_time_countdown;
@@ -77,6 +80,10 @@ public class GameController : MonoBehaviour {
 		}
 		
 		if (game_gameState == 1) {
+			
+			Cursor.lockState = CursorLockMode.Confined;
+			Cursor.visible = false;
+			
 			enemyText.text = "Enemies: " + game_enemyRemaining;
 			waveText.text = "Wave: " + game_wave;
 		}
@@ -89,7 +96,7 @@ public class GameController : MonoBehaviour {
 			Pause();
 		}
 		
-		if (game_playerHealth <= 0) {
+		if (player_currentHealth <= 0) {
 			GameOver();
 		}
 		
@@ -97,6 +104,8 @@ public class GameController : MonoBehaviour {
 	
 	public void GameOver() {
 		failMenu.SetActive(true);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 		this.game_gameState = 3;
 		Time.timeScale = 0;
     }
@@ -111,12 +120,16 @@ public class GameController : MonoBehaviour {
 	
 	public void Pause() {
 		pauseMenu.SetActive(true);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 		this.game_gameState = 2;
 		Time.timeScale = 0;
 	}
 	
 	public void unPause() {
 		pauseMenu.SetActive(false);
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = false;
 		this.game_gameState = 1;
 		Time.timeScale = 1;
 	}

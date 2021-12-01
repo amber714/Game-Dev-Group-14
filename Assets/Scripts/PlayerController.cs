@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 	
 	[SerializeField] private GameController gameController;
 	[SerializeField] private GameObject playerCamera;
+	[SerializeField] private GameObject playerCameraFocus;
 	
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject powerup_prefab_bombs;
@@ -13,10 +14,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject audioHandler1;
 	[SerializeField] private GameObject audioHandler2;
 	
-	public float camera_speed_up = 1.0F;
-	public float camera_speed_down = 1.0F;
-	
-	private int camera_degrees = 10;
+	private int camera_degrees_x = 10;
+	private int camera_degrees_y = 0;
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController controller;
 	
@@ -33,9 +32,12 @@ public class PlayerController : MonoBehaviour {
 		
 		if(gameController.game_gameState == 1 || gameController.game_gameState == 0) {
 			
-			this.transform.Rotate(0, camera_degrees * Input.GetAxis("Mouse X"), 0);
+			this.transform.Rotate(0, camera_degrees_x * Input.GetAxis("Mouse X"), 0);
 			playerCamera.transform.RotateAround (this.transform.position, Vector3.up, 0);
+			playerCamera.transform.LookAt(playerCameraFocus.transform);
+			//playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, 3 + camera_degrees_y, playerCamera.transform.localPosition.z);
 			
+
 			if (controller.isGrounded) {
 				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 				moveDirection = transform.TransformDirection(moveDirection);

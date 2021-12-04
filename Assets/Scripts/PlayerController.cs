@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject audioHandler2;
 	
 	private int camera_degrees_x = 10;
-	private int camera_degrees_y = 0;
+	//private int camera_degrees_y = 0;
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController controller;
 	

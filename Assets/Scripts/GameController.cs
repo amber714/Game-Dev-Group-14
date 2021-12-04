@@ -28,6 +28,8 @@ public class GameController : MonoBehaviour {
 	
 	[SerializeField] public GameObject pauseMenu;
 	[SerializeField] public GameObject failMenu;
+	[SerializeField] public GameObject conversationHUD;
+	[SerializeField] public Text conversationText;
 	
 	[SerializeField] private GameObject player;
 	
@@ -57,6 +59,7 @@ public class GameController : MonoBehaviour {
 		
 		Time.timeScale = 1;
 	
+		conversationHUD.SetActive(false);
 		pauseMenu.SetActive(false);
 		failMenu.SetActive(false);
 		

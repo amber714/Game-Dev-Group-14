@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject audioHandler1;
 	[SerializeField] private GameObject audioHandler2;
 	
+	private int control_enabled = 1;
 	private int camera_degrees_x = 10;
 	//private int camera_degrees_y = 0;
 	private Vector3 moveDirection = Vector3.zero;
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 			//playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, 3 + camera_degrees_y, playerCamera.transform.localPosition.z);
 			
 
-			if (controller.isGrounded) {
+			if (controller.isGrounded && control_enabled == 1) {
 				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= gameController.player_speed;
@@ -76,32 +77,47 @@ public class PlayerController : MonoBehaviour {
 		
     }
 	
-	private void OnTriggerEnter(Collider other)
-    {
+	private void OnTriggerEnter(Collider other){
+		
+		CharacterController controller = GetComponent<CharacterController>();
+		
 		if (other.gameObject.tag == "powerup_random") {
 			if (gameController.player_powerupEquip == 0) {
 				gameController.player_powerupEquip = 1;
 				Destroy(other.gameObject);
 			}
         }
+		
 		if (other.gameObject.tag == "powerup_tower") {
 			if (gameController.player_powerupEquip == 0) {
 				gameController.player_powerupEquip = 2;
 				Destroy(other.gameObject);
 			}
         }
+		
 		if (other.gameObject.tag == "powerup_speed") {
 			if (gameController.player_powerupEquip == 0) {
 				gameController.player_powerupEquip = 3;
 				Destroy(other.gameObject);
 			}
         }
+		
 		if (other.gameObject.tag == "powerup_bombs") {
 			if (gameController.player_powerupEquip == 0) {
 				gameController.player_powerupEquip = 4;
 				Destroy(other.gameObject);
 			}
         }
+		
+		if (other.gameObject.tag == "portal_start") {
+			Debug.Log("[DEBUG] portal_start collision");
+			controller.enabled = false;
+			this.transform.position = gameController.startPoint.transform.position;
+			this.transform.Rotate(0.0f, -122.0f, 0.0f, Space.Self);
+			controller.enabled = true;
+			gameController.game_spawnroom = 0;
+        }
+		
 	}
 	
 }

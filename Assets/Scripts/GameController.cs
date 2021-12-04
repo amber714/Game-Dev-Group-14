@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject powerup3_icon;
 	[SerializeField] private GameObject powerup4_icon;
 	
+	[SerializeField] private GameObject powerup_chest;
+	
 	[SerializeField] private Text waveText;
 	[SerializeField] private Text enemyText;
 	[SerializeField] private Text coinsText;
@@ -32,6 +34,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public Text conversationText;
 	
 	[SerializeField] private GameObject player;
+	[SerializeField] public GameObject startPoint;
 	
 	public int game_coins;
 	public int game_wave = 1;
@@ -43,6 +46,7 @@ public class GameController : MonoBehaviour {
 	public float player_jump = 8.0F;
 	public float player_gravity = 20.0F;
 	
+	public int game_spawnroom = 1;
 	public int game_gameState = 0; //States are [0,1,2,3] ... 0: startup, 1: running, 2: paused, 3: failed
 	public int game_enemyTotal = 4;
 	public int game_enemyRemaining = 4;
@@ -62,6 +66,16 @@ public class GameController : MonoBehaviour {
 		conversationHUD.SetActive(false);
 		pauseMenu.SetActive(false);
 		failMenu.SetActive(false);
+					
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = false;
+		
+		waveText.text = "";
+		enemyText.text = "";
+		
+		for (int i = 0; i < 8; i++) {
+			Instantiate(powerup_chest, new Vector3(Random.Range(-45, 45), 5, Random.Range(-45, 45)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+		}
 		
     }
 	
@@ -70,10 +84,7 @@ public class GameController : MonoBehaviour {
 		coinsText.text = "" + game_coins;
 		healthText.text = "" + player_currentHealth;
 		
-		if (game_gameState == 0) {
-			
-			Cursor.lockState = CursorLockMode.Confined;
-			Cursor.visible = false;
+		if (game_gameState == 0 && game_spawnroom == 0) {
 			
 			if (game_time_countdown > 0) {
 				waveText.text = "Time to start: " + (int)game_time_countdown;
@@ -152,8 +163,9 @@ public class GameController : MonoBehaviour {
 	
 	private void spawnEnemies() {
 		GameObject[] game_enemyArray = new GameObject[] { enemy1, enemy2, enemy3, enemy4 };
-		for (int i = 0; i < this.game_enemyTotal; i++)
-			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-20, 20), 1, Random.Range(-20, 20)), Quaternion.identity);
+		for (int i = 0; i < this.game_enemyTotal; i++) {
+			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-20, 20), 5, Random.Range(-20, 20)), Quaternion.identity);
+		}
 	}
 	
 }

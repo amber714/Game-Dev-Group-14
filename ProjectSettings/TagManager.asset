@@ -13,6 +13,9 @@ TagManager:
   - powerup_speed
   - powerup_tower
   - powerup_bombs
+  - UI
+  - portal_start
+  - obstacle_water
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1853550963856291547}
   - component: {fileID: 7265986418456270278}
   - component: {fileID: 5087293823311404705}
-  - component: {fileID: 2151604204109719239}
   m_Layer: 0
   m_Name: Tree Base
   m_TagString: Obstacle
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2151604204109719239
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240844586230210762}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &8977122823806481935
 GameObject:
   m_ObjectHideFlags: 0

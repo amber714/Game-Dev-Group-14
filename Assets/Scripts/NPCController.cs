@@ -9,6 +9,7 @@ public class NPCController : MonoBehaviour {
 	
 	private GameObject targetPlayer;
 	private GameController gameController;
+	private int talking = 0;
 	
     void Start() {
 		
@@ -25,7 +26,7 @@ public class NPCController : MonoBehaviour {
 			var rotation = Quaternion.LookRotation(lookPos);
 			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, Time.deltaTime * 10);
 			
-			if(Input.GetKeyDown(KeyCode.E)) {
+			if(Input.GetKeyDown(KeyCode.E) && talking == 0) {
 				interactNPC();
 			}
 		}
@@ -33,6 +34,7 @@ public class NPCController : MonoBehaviour {
 	}
 	
 	void interactNPC() {
+		talking = 1;
 		npc_portrait.SetActive(true);
 		gameController.conversationHUD.SetActive(true);
 		StartCoroutine("AutoType");
@@ -49,6 +51,7 @@ public class NPCController : MonoBehaviour {
 		}
 		npc_portrait.SetActive(false);
 		gameController.conversationHUD.SetActive(false);
+		talking = 0;
 	}
 	
 }

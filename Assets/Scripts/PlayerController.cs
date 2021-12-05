@@ -22,9 +22,10 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject hitMarker;
 	[SerializeField] private GameObject bulletProjectile;
 	
-	[SerializeField] private GameObject audioHandler1;
-	[SerializeField] private GameObject audio_weaponPrimary;
-	[SerializeField] private GameObject audio_weaponSecondary;
+	[SerializeField] private GameObject audio_errorSound;
+	[SerializeField] private GameObject audio_damagedSound;
+	[SerializeField] private GameObject audio_weapon1Sound;
+	[SerializeField] private GameObject audio_weapon2Sound;
 	
 	private int control_enabled = 1;
 	private int camera_degrees = 10;
@@ -33,18 +34,23 @@ public class PlayerController : MonoBehaviour {
 	
 	private float fireRate1 = 0.5F;
     private float nextFire1 = 0.0F;
-	private float fireRate2 = 0.5F;
+	private float fireRate2 = 3.0F;
     private float nextFire2 = 0.0F;
 	
 	private AudioSource errorSound;
+	private AudioSource damagedSound;
 	private AudioSource weapon1Sound;
 	private AudioSource weapon2Sound;
 	
+	float mass = 3.0F; // defines the character mass
+    Vector3 impact = Vector3.zero;
+	
 	void Start()
 	{
-		errorSound = audioHandler1.GetComponent<AudioSource>();
-		weapon1Sound = audio_weaponPrimary.GetComponent<AudioSource>();
-		weapon2Sound = audio_weaponSecondary.GetComponent<AudioSource>();
+		errorSound = audio_errorSound.GetComponent<AudioSource>();
+		damagedSound = audio_damagedSound.GetComponent<AudioSource>();
+		weapon1Sound = audio_weapon1Sound.GetComponent<AudioSource>();
+		weapon2Sound = audio_weapon2Sound.GetComponent<AudioSource>();
     }
 	
     void Update () {
@@ -68,10 +74,17 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 			
-			if(Input.GetAxis("Mouse Y") < 0)
+			if(Input.GetAxis("Mouse Y") < 0) {
 				playerCamera.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + 0.05f, playerCamera.transform.position.z);
-			if(Input.GetAxis("Mouse Y") > 0)
+			}
+			if(Input.GetAxis("Mouse Y") > 0) {
 				playerCamera.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 0.05f, playerCamera.transform.position.z);
+			}
+			
+			// apply the impact force:
+			if (impact.magnitude > 0.2F) { controller.Move(impact * Time.deltaTime); }
+			// consumes the impact energy each cycle:
+			impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
 			
 			moveDirection.y -= gameController.player_gravity * Time.deltaTime;
 			controller.Move(moveDirection * Time.deltaTime);
@@ -141,6 +154,17 @@ public class PlayerController : MonoBehaviour {
 		
     }
 	
+	public void AddImpact(Vector3 dir, float force){
+		
+        dir.Normalize();
+        if (dir.y < 0) {
+			dir.y = -dir.y;
+		}
+		// reflect down force on the ground
+		impact += dir.normalized * force / mass;
+		
+    }
+	
 	private void OnTriggerEnter(Collider other){
 		
 		CharacterController controller = GetComponent<CharacterController>();
@@ -156,11 +180,22 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 	
+	void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Enemy") {
+            Debug.Log("Enemy Collision!");
+			damagedSound.Play();
+			gameController.player_currentHealth -= 10;
+			
+			AddImpact(collision.transform.position, 100);
+			
+        }
+    }
+	
 	void primaryFire() {
 		weapon1Sound.Play();
 		if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 			Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
-			Debug.Log(hitInfo.collider.name + Time.time);
+			//Debug.Log(hitInfo.collider.name + Time.time);
 			
 			if (hitInfo.collider.tag == "Enemy") {
 				Debug.Log("Enemy shot!");
@@ -179,7 +214,7 @@ public class PlayerController : MonoBehaviour {
 			weapon1Sound.Play();
 			if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 				Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
-				Debug.Log(hitInfo.collider.name + Time.time);
+				//Debug.Log(hitInfo.collider.name + Time.time);
 				
 				if (hitInfo.collider.tag == "Enemy") {
 					Debug.Log("Enemy shot!");

@@ -41,6 +41,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public AudioSource errorSound;
 	[SerializeField] public AudioSource damagedSound;
 	[SerializeField] public AudioSource pickupSound;
+	[SerializeField] public AudioSource popSound;
+	[SerializeField] public AudioSource arenaMusic;
+	[SerializeField] public AudioSource spawnMusic;
 	
 	public int game_coins;
 	public int game_wave = 1;
@@ -84,6 +87,8 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < 8; i++) {
 			Instantiate(powerup_chest, new Vector3(Random.Range(-45, 45), 5, Random.Range(-45, 45)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
 		}
+		
+		spawnMusic.Play();
 		
     }
 	

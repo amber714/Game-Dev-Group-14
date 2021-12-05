@@ -172,6 +172,9 @@ public class PlayerController : MonoBehaviour {
 			this.transform.Rotate(0.0f, -122.0f, 0.0f, Space.Self);
 			controller.enabled = true;
 			gameController.game_spawnroom = 0;
+			gameController.popSound.Play();
+			gameController.arenaMusic.Play();
+			gameController.spawnMusic.Stop();
         }
 		
 	}

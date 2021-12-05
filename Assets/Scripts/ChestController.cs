@@ -30,6 +30,8 @@ public class ChestController : MonoBehaviour {
 		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 5) {
 			if(Input.GetKeyDown(KeyCode.E) && gameController.game_coins >= gameController.game_chestPrices) {
 				openChest();
+			} else if (Input.GetKeyDown(KeyCode.E) && gameController.game_coins < gameController.game_chestPrices){
+				gameController.errorSound.Play();
 			}
 		}
 		
@@ -61,6 +63,7 @@ public class ChestController : MonoBehaviour {
 		GameObject[] game_chestArray = new GameObject[] { gameController.powerup1, gameController.powerup2, gameController.powerup3, gameController.powerup4 };
 		Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
 		gameController.game_coins -= gameController.game_chestPrices;
+		gameController.game_chestPrices = (int)(gameController.game_chestPrices * 1.5);
 		Destroy(gameObject);
 	}
 	

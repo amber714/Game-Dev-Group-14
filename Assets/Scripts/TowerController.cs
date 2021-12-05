@@ -13,9 +13,12 @@ public class TowerController : MonoBehaviour {
 	private float attack_delay = 1f;
 	private GameObject currentTarget;
 	
+	void LateUpdate() {
+		enemy = GameObject.FindGameObjectWithTag("Enemy");
+	}
+	
     // Update is called once per frame
     void Update() {
-		enemy = GameObject.FindGameObjectWithTag("Enemy");
 		if(enemy != null) {
 			if (Vector3.Distance(enemy.transform.position, this.transform.position) < range) {
 				this.transform.LookAt(enemy.transform);

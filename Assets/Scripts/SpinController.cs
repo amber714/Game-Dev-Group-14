@@ -23,8 +23,9 @@ public class SpinController : MonoBehaviour
 				CharacterController controller = targetPlayer.GetComponent<CharacterController>();
 				controller.enabled = false;
 				targetPlayer.transform.position = gameController.spawnPoint.transform.position;
-				this.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
 				controller.enabled = true;
+				gameController.arenaMusic.Stop();
+				gameController.spawnMusic.Play();
 			}
 		}
 		

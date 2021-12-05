@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -8,10 +9,18 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject playerCamera;
 	[SerializeField] private GameObject playerCameraFocus;
 	
+	[SerializeField] public GameObject ability1_icon;
+	[SerializeField] public GameObject ability2_icon;
+	[SerializeField] public GameObject ability3_icon;
+	[SerializeField] public GameObject ability1_color;
+	[SerializeField] public GameObject ability2_color;
+	[SerializeField] public GameObject ability3_color;
+	
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject powerup_prefab_bombs;
 	
 	[SerializeField] private GameObject hitMarker;
+	[SerializeField] private GameObject bulletProjectile;
 	
 	[SerializeField] private GameObject audioHandler1;
 	[SerializeField] private GameObject audio_weaponPrimary;
@@ -82,6 +91,24 @@ public class PlayerController : MonoBehaviour {
 			//flashTime = Time.time;
 			secondaryFire();
 		}
+		
+		if (Time.time > this.nextFire1) { 
+			ability1_icon.GetComponent<Image>().color = new Color32(255,255,255,255);
+			ability1_color.GetComponent<Image>().color = new Color32(255,255,255,255);
+		} 
+		if (Time.time < this.nextFire1) { 
+			ability1_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
+			ability1_color.GetComponent<Image>().color = new Color32(255,255,255,150);
+		}
+		
+		if (Time.time > this.nextFire2) { 
+			ability2_icon.GetComponent<Image>().color = new Color32(255,255,255,255);
+			ability2_color.GetComponent<Image>().color = new Color32(255,255,255,255);
+		} 
+		if (Time.time < this.nextFire2) { 
+			ability2_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
+			ability2_color.GetComponent<Image>().color = new Color32(255,255,255,150);
+		}
 
 		if(Input.GetKeyDown(KeyCode.Q)) {
 
@@ -134,6 +161,7 @@ public class PlayerController : MonoBehaviour {
 		if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 			Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
 			Debug.Log(hitInfo.collider.name + Time.time);
+			
 			if (hitInfo.collider.tag == "Enemy") {
 				Debug.Log("Enemy shot!");
 				hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
@@ -152,6 +180,7 @@ public class PlayerController : MonoBehaviour {
 			if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 				Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
 				Debug.Log(hitInfo.collider.name + Time.time);
+				
 				if (hitInfo.collider.tag == "Enemy") {
 					Debug.Log("Enemy shot!");
 					hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;

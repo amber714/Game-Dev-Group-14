@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
 	
 	[SerializeField] public GameObject player;
 	[SerializeField] public GameObject startPoint;
+	[SerializeField] public GameObject spawnPoint;
 	
 	[SerializeField] public AudioSource errorSound;
 	[SerializeField] public AudioSource damagedSound;

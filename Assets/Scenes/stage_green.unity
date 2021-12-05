@@ -13589,6 +13589,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 766820181604126415, guid: 9bfda3fb8ef951743aaff88430cc75a2, type: 3}
     - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: turretEffect
+      value: 
+      objectReference: {fileID: 3337579758834872038, guid: c26e77120e6c3664cbdf8e5619e4c639, type: 3}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
       propertyPath: ability1_icon
       value: 
       objectReference: {fileID: 707129976}

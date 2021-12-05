@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] public GameObject effect_slowdown;
 	
 	[SerializeField] private GameObject powerup_prefab_turret;
+	[SerializeField] private GameObject turretEffect;
 	[SerializeField] private GameObject powerup_prefab_bombs;
 	
 	[SerializeField] private GameObject audio_errorSound;
@@ -154,9 +155,15 @@ public class PlayerController : MonoBehaviour {
 				if (gameController.player_powerupEquip == 2) {
 					Debug.Log("[DEBUG] player_powerupEquip == 2");
 					if (turret_placed == 0) {
+						Debug.Log("Turret Effect created");
+						GameObject effectInstance = (GameObject)Instantiate(turretEffect, transform.position, transform.rotation);
+						Destroy(effectInstance, 2f);
 						player_turret = Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
 						turret_placed = 1;
 					} else if (turret_placed == 1) {
+						Debug.Log("Turret Effect created");
+						GameObject effectInstance = (GameObject)Instantiate(turretEffect, transform.position, transform.rotation);
+						Destroy(effectInstance, 2f);
 						player_turret.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
 					}
 				}

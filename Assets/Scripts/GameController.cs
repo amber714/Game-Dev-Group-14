@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour {
 	public float player_gravity = 20.0F;
 	
 	public int game_spawnroom = 1;
+	public int game_started = 0;
 	public int game_gameState = 0; //States are [0,1,2,3] ... 0: startup, 1: running, 2: paused, 3: failed
 	public int game_enemyTotal = 4;
 	public int game_enemyRemaining = 4;
@@ -95,12 +96,13 @@ public class GameController : MonoBehaviour {
 			
 			if (game_time_countdown <= 0) {
 				game_gameState = 1;
+				game_started = 1;
 				spawnEnemies();
 			}
 			
 		}
 		
-		if (game_gameState == 1) {
+		if (game_gameState == 1 && game_started == 1) {
 			
 			Cursor.lockState = CursorLockMode.Confined;
 			Cursor.visible = false;
@@ -188,8 +190,13 @@ public class GameController : MonoBehaviour {
 		pauseMenu.SetActive(false);
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
-		this.game_gameState = 1;
-		if (game_spawnroom == 1) {
+		if (game_spawnroom == 0 && game_started == 1) {
+			this.game_gameState = 1;
+		}
+		if (game_spawnroom == 1 && game_started == 0) {
+			this.game_gameState = 0;
+		}
+		if (game_spawnroom == 0 && game_started == 0) {
 			this.game_gameState = 0;
 		}
 		Time.timeScale = 1;

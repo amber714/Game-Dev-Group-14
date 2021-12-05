@@ -186,8 +186,10 @@ public class PlayerController : MonoBehaviour {
 			damagedSound.Play();
 			gameController.player_currentHealth -= 10;
 			
-			AddImpact(collision.transform.position, 100);
+			//var localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+			var localVelocity = new Vector3(0, 1, 0);
 			
+			AddImpact(localVelocity, 100);
         }
     }
 	

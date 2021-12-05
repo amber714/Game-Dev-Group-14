@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour {
 		enemy_healthBar.transform.localScale = new Vector3((enemy_currentHealth / enemy_maxHealth), 1, 1);
 		if (enemy_currentHealth <= 0) {
 			gameController.game_enemyRemaining = gameController.game_enemyRemaining - 1;
-			gameController.game_coins =+ enemy_value;
+			gameController.game_coins += enemy_value;
 			Destroy(gameObject);
 		}
 		

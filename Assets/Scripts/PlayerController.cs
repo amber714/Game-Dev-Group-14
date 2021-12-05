@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour {
 	private float fireRate2 = 3.0F;
     private float nextFire2 = 0.0F;
 	
-	private AudioSource errorSound;
-	private AudioSource damagedSound;
 	private AudioSource weapon1Sound;
 	private AudioSource weapon2Sound;
 	
@@ -47,8 +45,6 @@ public class PlayerController : MonoBehaviour {
 	
 	void Start()
 	{
-		errorSound = audio_errorSound.GetComponent<AudioSource>();
-		damagedSound = audio_damagedSound.GetComponent<AudioSource>();
 		weapon1Sound = audio_weapon1Sound.GetComponent<AudioSource>();
 		weapon2Sound = audio_weapon2Sound.GetComponent<AudioSource>();
     }
@@ -127,7 +123,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (gameController.player_powerupEquip == 0) {
 				Debug.Log("[DEBUG] player_powerupEquip == 0");
-				errorSound.Play();
+				gameController.errorSound.Play();
 			}
 			
 			if (gameController.player_powerupEquip == 1) {
@@ -183,11 +179,11 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Enemy") {
             Debug.Log("Enemy Collision!");
-			damagedSound.Play();
+			gameController.damagedSound.Play();
 			gameController.player_currentHealth -= 10;
 			
-			//var localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
-			var localVelocity = new Vector3(0, 1, 0);
+			var localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+			//var localVelocity = new Vector3(0, 1, 0);
 			
 			AddImpact(localVelocity, 100);
         }

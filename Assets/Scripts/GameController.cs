@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public Text enemyText;
 	[SerializeField] public Text coinsText;
 	[SerializeField] public Text healthText;
+	[SerializeField] public Text speedText;
+	[SerializeField] public Text jumpText;
 	
 	[SerializeField] public GameObject pauseMenu;
 	[SerializeField] public GameObject failMenu;
@@ -35,6 +37,9 @@ public class GameController : MonoBehaviour {
 	
 	[SerializeField] public GameObject player;
 	[SerializeField] public GameObject startPoint;
+	
+	[SerializeField] public AudioSource errorSound;
+	[SerializeField] public AudioSource damagedSound;
 	
 	public int game_coins;
 	public int game_wave = 1;
@@ -85,6 +90,8 @@ public class GameController : MonoBehaviour {
 		
 		coinsText.text = "" + game_coins;
 		healthText.text = "" + player_currentHealth;
+		speedText.text = "" + player_speed;
+		jumpText.text = "" + player_jump;
 		
 		if (game_gameState == 0 && game_spawnroom == 0) {
 			

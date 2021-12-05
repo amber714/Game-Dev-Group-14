@@ -425,12 +425,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12598381}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.73, y: 28.8, z: -119.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1982474075}
-  m_RootOrder: 4
+  m_Father: {fileID: 1399530839}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &12598383
 AudioSource:
@@ -4540,36 +4540,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933165683}
   m_CullTransparentMesh: 1
---- !u!1 &977648923
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 977648924}
-  m_Layer: 0
-  m_Name: audioHandler1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &977648924
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977648923}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1399530839}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992447890
 GameObject:
   m_ObjectHideFlags: 0
@@ -6266,12 +6236,16 @@ MonoBehaviour:
   enemyText: {fileID: 1456888921}
   coinsText: {fileID: 1217339694}
   healthText: {fileID: 1736606845}
+  speedText: {fileID: 2021206234}
+  jumpText: {fileID: 2131592908}
   pauseMenu: {fileID: 1066037331}
   failMenu: {fileID: 473240043}
   conversationHUD: {fileID: 1750802476}
   conversationText: {fileID: 1290835536}
   player: {fileID: 1982474068}
   startPoint: {fileID: 114425318}
+  errorSound: {fileID: 1662322088}
+  damagedSound: {fileID: 12598383}
   game_coins: 0
   game_wave: 1
   game_chestPrices: 25
@@ -6297,7 +6271,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 977648924}
+  - {fileID: 12598382}
+  - {fileID: 1662322087}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6902,7 +6877,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6f4653e69cecfa499a12f33c012e1a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f39891c3b70f774fb6090d0b34b83b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7564,12 +7539,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662322086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.73, y: 28.8, z: -119.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1982474075}
-  m_RootOrder: 5
+  m_Father: {fileID: 1399530839}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1662322088
 AudioSource:
@@ -9574,7 +9549,7 @@ PrefabInstance:
     - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
       propertyPath: audioHandler1
       value: 
-      objectReference: {fileID: 977648923}
+      objectReference: {fileID: 0}
     - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
       propertyPath: ability1_color
       value: 

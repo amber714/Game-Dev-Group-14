@@ -58,7 +58,8 @@ public class ChestController : MonoBehaviour {
     }
 	
 	private void openChest() {
-		Instantiate(gameController.powerup1, new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
+		GameObject[] game_chestArray = new GameObject[] { gameController.powerup1, gameController.powerup2, gameController.powerup3, gameController.powerup4 };
+		Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
 		gameController.game_coins -= gameController.game_chestPrices;
 		Destroy(gameObject);
 	}

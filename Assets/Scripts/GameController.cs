@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour {
 		conversationHUD.SetActive(false);
 		pauseMenu.SetActive(false);
 		failMenu.SetActive(false);
-					
+		
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
 		
@@ -169,11 +169,11 @@ public class GameController : MonoBehaviour {
     }
 	
 	public void LoadMenu() {
-		SceneManager.LoadScene("Menu");
+		SceneManager.LoadScene("stage_title");
 	}
 	
 	public void RestartLevel() {
-		SceneManager.LoadScene("Game");
+		SceneManager.LoadScene("stage_green");
 	}
 	
 	public void Pause() {
@@ -189,6 +189,9 @@ public class GameController : MonoBehaviour {
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
 		this.game_gameState = 1;
+		if (game_spawnroom == 1) {
+			this.game_gameState = 0;
+		}
 		Time.timeScale = 1;
 	}
 	

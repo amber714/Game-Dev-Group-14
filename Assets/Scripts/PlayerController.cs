@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour {
 		weapon1Sound.Play();
 		if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 			Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
-			//Debug.Log(hitInfo.collider.name + Time.time);
+			Debug.Log(hitInfo.collider.name + " at " +  Time.time);
 			
 			if (hitInfo.collider.tag == "Enemy") {
 				Debug.Log("Enemy shot!");

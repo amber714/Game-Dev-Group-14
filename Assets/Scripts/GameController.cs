@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour {
 	
 	[SerializeField] public AudioSource errorSound;
 	[SerializeField] public AudioSource damagedSound;
+	[SerializeField] public AudioSource pickupSound;
 	
 	public int game_coins;
 	public int game_wave = 1;

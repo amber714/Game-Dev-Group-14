@@ -27,7 +27,7 @@ public class ChestController : MonoBehaviour {
 			chestHUD.SetActive(false);
 		}
 		
-		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 5) {
+		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 4) {
 			if(Input.GetKeyDown(KeyCode.E) && gameController.game_coins >= gameController.game_chestPrices) {
 				openChest();
 			} else if (Input.GetKeyDown(KeyCode.E) && gameController.game_coins < gameController.game_chestPrices){

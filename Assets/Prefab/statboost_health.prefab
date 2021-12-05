@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 6377946928603079711}
   - component: {fileID: 50945437338760436}
   m_Layer: 0
-  m_Name: shoe
+  m_Name: heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b6f4653e69cecfa499a12f33c012e1a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b658261097f73c646a8822a551c545ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,9 +218,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 260744102216422934}
-  - component: {fileID: 5491545519244763424}
+  - component: {fileID: 8324965908389639065}
   m_Layer: 0
-  m_Name: statboost_speed
+  m_Name: statboost_health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5491545519244763424
+--- !u!114 &8324965908389639065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8c741be8fd4154a91b8d7177c91aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statboostID: 2
+  statboostID: 1
 --- !u!1 &4430169504787356610
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 39faebe4e864f7a4d80b7a9f8caed4bf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 503609b9c8d8abc4cab7543965ea47e4, type: 2}
+      objectReference: {fileID: 2100000, guid: 814fa9cd60e26c24e8261f8e1e416252, type: 2}
     - target: {fileID: 919132149155446097, guid: 39faebe4e864f7a4d80b7a9f8caed4bf, type: 3}
       propertyPath: m_Name
       value: ring

@@ -16,8 +16,9 @@ public class PowerupController : MonoBehaviour {
 	
 	void Update() {
 		
-		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 5) {
+		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 4) {
 			if (Input.GetKeyDown(KeyCode.E)) {
+				gameController.pickupSound.Play();
 				if (powerupID == 1) {
 					gameController.player_powerupEquip = 1;
 					Destroy(gameObject);

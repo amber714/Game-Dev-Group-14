@@ -6,6 +6,7 @@ public class NPCController : MonoBehaviour {
     
 	[SerializeField] private GameObject npc_portrait;
 	[SerializeField] private string[] npc_dialogue = {};
+	[SerializeField] public AudioSource npcSound;
 	
 	private GameObject targetPlayer;
 	private GameController gameController;
@@ -27,7 +28,7 @@ public class NPCController : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, Time.deltaTime * 10);
 		}
 		
-		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 5) {
+		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 4) {
 			if(Input.GetKeyDown(KeyCode.E) && talking == 0) {
 				interactNPC();
 			}
@@ -46,6 +47,7 @@ public class NPCController : MonoBehaviour {
 		foreach(string dialogue in npc_dialogue){
 			foreach(char character in dialogue.ToCharArray()){
 				gameController.conversationText.text += character;
+				this.npcSound.Play();
 				yield return new WaitForSeconds(0.05f);
 			}
 			yield return new WaitForSeconds(1f);

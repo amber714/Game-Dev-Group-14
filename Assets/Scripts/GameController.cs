@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour {
 	
 	public int game_spawnroom = 1;
 	public int game_started = 0;
+	public int wave_waiting = 0;
 	public int game_gameState = 0; //States are [0,1,2,3] ... 0: startup, 1: running, 2: paused, 3: failed
 	public int game_enemyTotal = 4;
 	public int game_enemyRemaining = 4;
@@ -126,7 +127,7 @@ public class GameController : MonoBehaviour {
 			
 		}
 		
-		if (game_gameState == 1 && game_started == 1) {
+		if (game_gameState == 1 && game_started == 1 && wave_waiting == 0) {
 			
 			Cursor.lockState = CursorLockMode.Confined;
 			Cursor.visible = false;
@@ -230,7 +231,7 @@ public class GameController : MonoBehaviour {
 		game_wave += 1;
 		game_enemyTotal = (2+(game_wave*2));
 		game_enemyRemaining = game_enemyTotal;
-		spawnEnemies();
+		StartCoroutine("delayed_spawnEnemies");
     }
 	
 	private void spawnEnemies() {
@@ -238,6 +239,17 @@ public class GameController : MonoBehaviour {
 		for (int i = 0; i < this.game_enemyTotal; i++) {
 			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.identity);
 		}
+	}
+	
+	IEnumerator delayed_spawnEnemies() {
+		wave_waiting = 1;
+		for (int i = 5; i > 0; i--) {
+			waveText.text = "Time to start: " + i;
+			enemyText.text = "";
+			yield return new WaitForSeconds(1.0f);
+		}
+		spawnEnemies();
+		wave_waiting = 0;
 	}
 	
 }

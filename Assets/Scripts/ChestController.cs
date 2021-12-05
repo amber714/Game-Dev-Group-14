@@ -68,7 +68,7 @@ public class ChestController : MonoBehaviour {
 			GameObject[] game_chestArray = new GameObject[] { gameController.statboost1, gameController.statboost2, gameController.statboost3 };
 			Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z), Quaternion.identity);
 			gameController.game_coins -= gameController.game_chestPrices;
-			gameController.game_chestPrices = (int)(gameController.game_chestPrices * 1.5);
+			gameController.game_chestPrices = (int)(gameController.game_chestPrices * 1.2);
 			Instantiate(gameController.statboost_chest, new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
 			Destroy(gameObject);
 		}

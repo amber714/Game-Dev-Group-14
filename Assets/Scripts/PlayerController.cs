@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 				}
 				if (gameController.player_powerupEquip == 4) {
 					Debug.Log("[DEBUG] player_powerupEquip == 4");
-					for (int i = 0; i < 10; i++){
+					for (int i = 0; i < 15; i++){
 						Instantiate(powerup_prefab_bombs, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
 					}
 				}
@@ -259,7 +259,6 @@ public class PlayerController : MonoBehaviour {
 		gameController.player_speed += 5;
 		yield return new WaitForSeconds(3.0f);
 		gameController.player_speed = stored_speed;
-		
 	}
 	
 	IEnumerator enemyEffect() {

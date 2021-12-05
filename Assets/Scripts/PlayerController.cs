@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] public GameObject ability2_color;
 	[SerializeField] public GameObject ability3_color;
 	
+	[SerializeField] public GameObject effect_slowdown;
+	
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject powerup_prefab_bombs;
 	
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject audio_weapon1Sound;
 	[SerializeField] private GameObject audio_weapon2Sound;
 	
+	private int currentEffect = 0;
 	private int control_enabled = 1;
 	private int turret_placed = 0;
 	private int camera_degrees = 10;
@@ -159,6 +162,7 @@ public class PlayerController : MonoBehaviour {
 				}
 				if (gameController.player_powerupEquip == 3) {
 					Debug.Log("[DEBUG] player_powerupEquip == 3");
+					StartCoroutine("speedBoost");
 				}
 				if (gameController.player_powerupEquip == 4) {
 					Debug.Log("[DEBUG] player_powerupEquip == 4");
@@ -206,11 +210,13 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Enemy Collision!");
 			gameController.damagedSound.Play();
 			gameController.player_currentHealth -= 10;
-			
 			var localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
 			//var localVelocity = new Vector3(0, 1, 0);
-			
 			AddImpact(localVelocity, 100);
+			if (currentEffect == 0) {
+				currentEffect = collision.gameObject.GetComponent<EnemyController>().enemy_effect;
+			}
+			StartCoroutine("enemyEffect");
         }
     }
 	
@@ -245,6 +251,30 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 			yield return new WaitForSeconds(0.1f);
+		}
+	}
+	
+	IEnumerator speedBoost() {
+		var stored_speed = gameController.player_speed;
+		gameController.player_speed += 5;
+		yield return new WaitForSeconds(3.0f);
+		gameController.player_speed = stored_speed;
+		
+	}
+	
+	IEnumerator enemyEffect() {
+		Debug.Log("Effect Triggered!");
+		if (currentEffect == 1) {
+			effect_slowdown.active = true;
+			var stored_speed = gameController.player_speed;
+			gameController.player_speed -= 5;
+			if (gameController.player_speed <= 1) {
+				gameController.player_speed = 1;
+			}
+			yield return new WaitForSeconds(1.0f);
+			gameController.player_speed = stored_speed;
+			effect_slowdown.active = false;
+			currentEffect = 0;
 		}
 	}
 	

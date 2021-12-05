@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField] public float enemy_currentHealth;
 	[SerializeField] private float enemy_maxHealth;
 	[SerializeField] private int enemy_value;
+	[SerializeField] public int enemy_effect; //Effects are [0,1] ... 0: none, 1: slowdown
 	[SerializeField] private GameObject enemy_healthBar;
 	
 	public GameObject enemy_targetPlayer;

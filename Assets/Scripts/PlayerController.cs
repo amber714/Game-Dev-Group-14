@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	
@@ -8,22 +9,47 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject playerCamera;
 	[SerializeField] private GameObject playerCameraFocus;
 	
+	[SerializeField] public GameObject ability1_icon;
+	[SerializeField] public GameObject ability2_icon;
+	[SerializeField] public GameObject ability3_icon;
+	[SerializeField] public GameObject ability1_color;
+	[SerializeField] public GameObject ability2_color;
+	[SerializeField] public GameObject ability3_color;
+	
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject powerup_prefab_bombs;
 	
-	[SerializeField] private GameObject audioHandler1;
-	[SerializeField] private GameObject audioHandler2;
+	[SerializeField] private GameObject hitMarker;
+	[SerializeField] private GameObject bulletProjectile;
 	
-	private int camera_degrees_x = 10;
-	//private int camera_degrees_y = 0;
+	[SerializeField] private GameObject audio_errorSound;
+	[SerializeField] private GameObject audio_damagedSound;
+	[SerializeField] private GameObject audio_weapon1Sound;
+	[SerializeField] private GameObject audio_weapon2Sound;
+	
+	private int control_enabled = 1;
+	private int turret_placed = 0;
+	private int camera_degrees = 10;
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController controller;
 	
-	private AudioSource errorSound;
+	private float fireRate1 = 0.5F;
+    private float nextFire1 = 0.0F;
+	private float fireRate2 = 3.0F;
+    private float nextFire2 = 0.0F;
+	
+	private AudioSource weapon1Sound;
+	private AudioSource weapon2Sound;
+	
+	private GameObject player_turret;
+	
+	float mass = 3.0F; // defines the character mass
+    Vector3 impact = Vector3.zero;
 	
 	void Start()
 	{
-		errorSound = audioHandler1.GetComponent<AudioSource>();
+		weapon1Sound = audio_weapon1Sound.GetComponent<AudioSource>();
+		weapon2Sound = audio_weapon2Sound.GetComponent<AudioSource>();
     }
 	
     void Update () {
@@ -32,76 +58,180 @@ public class PlayerController : MonoBehaviour {
 		
 		if(gameController.game_gameState == 1 || gameController.game_gameState == 0) {
 			
-			this.transform.Rotate(0, camera_degrees_x * Input.GetAxis("Mouse X"), 0);
+			this.transform.Rotate(0, camera_degrees * Input.GetAxis("Mouse X"), 0);
 			playerCamera.transform.RotateAround (this.transform.position, Vector3.up, 0);
 			playerCamera.transform.LookAt(playerCameraFocus.transform);
-			//playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, 3 + camera_degrees_y, playerCamera.transform.localPosition.z);
 			
 
-			if (controller.isGrounded) {
+			if (controller.isGrounded && control_enabled == 1) {
 				moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= gameController.player_speed;
 				if (Input.GetButton("Jump")){
-					//jumpSound.Play();
+					gameController.jumpSound.Play();
 					moveDirection.y = gameController.player_jump;
 				}
 			}
+			
+			if(Input.GetAxis("Mouse Y") < 0) {
+				playerCamera.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y + 0.05f, playerCamera.transform.position.z);
+			}
+			if(Input.GetAxis("Mouse Y") > 0) {
+				playerCamera.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 0.05f, playerCamera.transform.position.z);
+			}
+			
+			// apply the impact force:
+			if (impact.magnitude > 0.2F) { controller.Move(impact * Time.deltaTime); }
+			// consumes the impact energy each cycle:
+			impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
+			
 			moveDirection.y -= gameController.player_gravity * Time.deltaTime;
 			controller.Move(moveDirection * Time.deltaTime);
 			
         }
+		
+		if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > this.nextFire1) {
+			this.nextFire1 = Time.time + this.fireRate1;
+			//weaponFlash.SetActive(true);
+			//flashTime = Time.time;
+			primaryFire();
+		}
+		
+		if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time > this.nextFire2) {
+			this.nextFire2 = Time.time + this.fireRate2;
+			//weaponFlash.SetActive(true);
+			//flashTime = Time.time;
+			secondaryFire();
+		}
+		
+		if (Time.time > this.nextFire1) { 
+			ability1_icon.GetComponent<Image>().color = new Color32(255,255,255,255);
+			ability1_color.GetComponent<Image>().color = new Color32(255,255,255,255);
+		} 
+		if (Time.time < this.nextFire1) { 
+			ability1_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
+			ability1_color.GetComponent<Image>().color = new Color32(255,255,255,150);
+		}
+		
+		if (Time.time > this.nextFire2) { 
+			ability2_icon.GetComponent<Image>().color = new Color32(255,255,255,255);
+			ability2_color.GetComponent<Image>().color = new Color32(255,255,255,255);
+		} 
+		if (Time.time < this.nextFire2) { 
+			ability2_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
+			ability2_color.GetComponent<Image>().color = new Color32(255,255,255,150);
+		}
 
 		if(Input.GetKeyDown(KeyCode.Q)) {
 
 			if (gameController.player_powerupEquip == 0) {
-				errorSound.Play();
+				Debug.Log("[DEBUG] player_powerupEquip == 0");
+				gameController.errorSound.Play();
 			}
 			
 			if (gameController.player_powerupEquip == 1) {
-				
+				Debug.Log("[DEBUG] player_powerupEquip == 1");
 			}
 			
 			if (gameController.player_powerupEquip == 2) {
-				for (int i = 0; i < 10; i++){
-					Instantiate(powerup_prefab_bombs, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
+				Debug.Log("[DEBUG] player_powerupEquip == 2");
+				if (turret_placed == 0) {
+					player_turret = Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
+					turret_placed = 1;
+				} else if (turret_placed == 1) {
+					player_turret.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
 				}
 			}
 			
 			if (gameController.player_powerupEquip == 3) {
-				
+				Debug.Log("[DEBUG] player_powerupEquip == 3");
+			}
+			
+			if (gameController.player_powerupEquip == 4) {
+				Debug.Log("[DEBUG] player_powerupEquip == 4");
+				for (int i = 0; i < 10; i++){
+					Instantiate(powerup_prefab_bombs, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
+				}
 			}
 			
 		}
 		
     }
 	
-	private void OnTriggerEnter(Collider other)
-    {
-		if (other.gameObject.tag == "powerup_random") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 1;
-				Destroy(other.gameObject);
-			}
+	public void AddImpact(Vector3 dir, float force){
+		
+        dir.Normalize();
+        if (dir.y < 0) {
+			dir.y = -dir.y;
+		}
+		// reflect down force on the ground
+		impact += dir.normalized * force / mass;
+		
+    }
+	
+	private void OnTriggerEnter(Collider other){
+		
+		CharacterController controller = GetComponent<CharacterController>();
+		
+		if (other.gameObject.tag == "portal_start") {
+			Debug.Log("[DEBUG] portal_start collision");
+			controller.enabled = false;
+			this.transform.position = gameController.startPoint.transform.position;
+			this.transform.Rotate(0.0f, -122.0f, 0.0f, Space.Self);
+			controller.enabled = true;
+			gameController.game_spawnroom = 0;
+			gameController.popSound.Play();
+			gameController.arenaMusic.Play();
+			gameController.spawnMusic.Stop();
         }
-		if (other.gameObject.tag == "powerup_tower") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 2;
-				Destroy(other.gameObject);
-			}
+		
+	}
+	
+	void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Enemy") {
+            Debug.Log("Enemy Collision!");
+			gameController.damagedSound.Play();
+			gameController.player_currentHealth -= 10;
+			
+			var localVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+			//var localVelocity = new Vector3(0, 1, 0);
+			
+			AddImpact(localVelocity, 100);
         }
-		if (other.gameObject.tag == "powerup_speed") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 3;
-				Destroy(other.gameObject);
+    }
+	
+	void primaryFire() {
+		weapon1Sound.Play();
+		if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
+			Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
+			Debug.Log(hitInfo.collider.name + " at " +  Time.time);
+			
+			if (hitInfo.collider.tag == "Enemy") {
+				Debug.Log("Enemy shot!");
+				hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
 			}
-        }
-		if (other.gameObject.tag == "powerup_bombs") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 4;
-				Destroy(other.gameObject);
+		}
+		
+	}
+	
+	void secondaryFire() {
+		StartCoroutine("secondaryBurst");
+	}
+	
+	IEnumerator secondaryBurst() {
+		for (int i = 0; i < 5; i++) {
+			weapon1Sound.Play();
+			if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
+				Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
+				//Debug.Log(hitInfo.collider.name + Time.time);
+				
+				if (hitInfo.collider.tag == "Enemy") {
+					Debug.Log("Enemy shot!");
+					hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
+				}
 			}
-        }
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 	
 }

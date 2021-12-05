@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 	
-	[SerializeField] private float enemy_currentHealth;
+	[SerializeField] public float enemy_currentHealth;
 	[SerializeField] private float enemy_maxHealth;
 	[SerializeField] private int enemy_value;
 	[SerializeField] private GameObject enemy_healthBar;
@@ -32,8 +32,9 @@ public class EnemyController : MonoBehaviour {
 		
 		enemy_healthBar.transform.localScale = new Vector3((enemy_currentHealth / enemy_maxHealth), 1, 1);
 		if (enemy_currentHealth <= 0) {
-			Destroy(gameObject);
 			gameController.game_enemyRemaining = gameController.game_enemyRemaining - 1;
+			gameController.game_coins += enemy_value;
+			Destroy(gameObject);
 		}
 		
 	}

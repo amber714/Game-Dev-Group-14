@@ -6,35 +6,49 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 	
-	[SerializeField] private GameObject enemy1;
-	[SerializeField] private GameObject enemy2;
-	[SerializeField] private GameObject enemy3;
-	[SerializeField] private GameObject enemy4;
+	[SerializeField] public GameObject enemy1;
+	[SerializeField] public GameObject enemy2;
+	[SerializeField] public GameObject enemy3;
+	[SerializeField] public GameObject enemy4;
 	
-	[SerializeField] private GameObject powerup1;
-	[SerializeField] private GameObject powerup2;
-	[SerializeField] private GameObject powerup3;
-	[SerializeField] private GameObject powerup4;
+	[SerializeField] public GameObject powerup1;
+	[SerializeField] public GameObject powerup2;
+	[SerializeField] public GameObject powerup3;
+	[SerializeField] public GameObject powerup4;
 	
-	[SerializeField] private GameObject powerup1_icon;
-	[SerializeField] private GameObject powerup2_icon;
-	[SerializeField] private GameObject powerup3_icon;
-	[SerializeField] private GameObject powerup4_icon;
+	[SerializeField] public GameObject powerup1_icon;
+	[SerializeField] public GameObject powerup2_icon;
+	[SerializeField] public GameObject powerup3_icon;
+	[SerializeField] public GameObject powerup4_icon;
 	
-	[SerializeField] private Text waveText;
-	[SerializeField] private Text enemyText;
-	[SerializeField] private Text coinsText;
-	[SerializeField] private Text healthText;
+	[SerializeField] public GameObject powerup_chest;
+	
+	[SerializeField] public Text waveText;
+	[SerializeField] public Text enemyText;
+	[SerializeField] public Text coinsText;
+	[SerializeField] public Text healthText;
+	[SerializeField] public Text speedText;
+	[SerializeField] public Text jumpText;
 	
 	[SerializeField] public GameObject pauseMenu;
 	[SerializeField] public GameObject failMenu;
 	[SerializeField] public GameObject conversationHUD;
 	[SerializeField] public Text conversationText;
 	
-	[SerializeField] private GameObject player;
+	[SerializeField] public GameObject player;
+	[SerializeField] public GameObject startPoint;
+	
+	[SerializeField] public AudioSource errorSound;
+	[SerializeField] public AudioSource damagedSound;
+	[SerializeField] public AudioSource pickupSound;
+	[SerializeField] public AudioSource popSound;
+	[SerializeField] public AudioSource jumpSound;
+	[SerializeField] public AudioSource arenaMusic;
+	[SerializeField] public AudioSource spawnMusic;
 	
 	public int game_coins;
 	public int game_wave = 1;
+	public int game_chestPrices = 25;
 	
 	public int player_currentHealth = 100;
 	public int player_maxHealth = 100;
@@ -43,6 +57,8 @@ public class GameController : MonoBehaviour {
 	public float player_jump = 8.0F;
 	public float player_gravity = 20.0F;
 	
+	public int game_spawnroom = 1;
+	public int game_started = 0;
 	public int game_gameState = 0; //States are [0,1,2,3] ... 0: startup, 1: running, 2: paused, 3: failed
 	public int game_enemyTotal = 4;
 	public int game_enemyRemaining = 4;
@@ -63,17 +79,28 @@ public class GameController : MonoBehaviour {
 		pauseMenu.SetActive(false);
 		failMenu.SetActive(false);
 		
+		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.visible = false;
+		
+		waveText.text = "";
+		enemyText.text = "";
+		
+		for (int i = 0; i < 8; i++) {
+			Instantiate(powerup_chest, new Vector3(Random.Range(-45, 45), 5, Random.Range(-45, 45)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+		}
+		
+		spawnMusic.Play();
+		
     }
 	
 	void Update() {
 		
 		coinsText.text = "" + game_coins;
 		healthText.text = "" + player_currentHealth;
+		speedText.text = "" + player_speed;
+		jumpText.text = "" + player_jump;
 		
-		if (game_gameState == 0) {
-			
-			Cursor.lockState = CursorLockMode.Confined;
-			Cursor.visible = false;
+		if (game_gameState == 0 && game_spawnroom == 0) {
 			
 			if (game_time_countdown > 0) {
 				waveText.text = "Time to start: " + (int)game_time_countdown;
@@ -83,12 +110,13 @@ public class GameController : MonoBehaviour {
 			
 			if (game_time_countdown <= 0) {
 				game_gameState = 1;
+				game_started = 1;
 				spawnEnemies();
 			}
 			
 		}
 		
-		if (game_gameState == 1) {
+		if (game_gameState == 1 && game_started == 1) {
 			
 			Cursor.lockState = CursorLockMode.Confined;
 			Cursor.visible = false;
@@ -109,6 +137,43 @@ public class GameController : MonoBehaviour {
 			GameOver();
 		}
 		
+		if (player_powerupEquip == 0) {
+			powerup1_icon.SetActive(false);
+			powerup2_icon.SetActive(false);
+			powerup3_icon.SetActive(false);
+			powerup4_icon.SetActive(false);
+		} else {
+		
+			if (player_powerupEquip == 1) {
+				powerup1_icon.SetActive(true);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(false);
+			}
+		
+			if (player_powerupEquip == 2) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(true);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(false);
+			}
+		
+			if (player_powerupEquip == 3) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(true);
+				powerup4_icon.SetActive(false);
+			}
+			
+			if (player_powerupEquip == 4) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(true);
+			}
+		
+		}
+		
 	}
 	
 	public void GameOver() {
@@ -120,11 +185,11 @@ public class GameController : MonoBehaviour {
     }
 	
 	public void LoadMenu() {
-		SceneManager.LoadScene("Menu");
+		SceneManager.LoadScene("stage_title");
 	}
 	
 	public void RestartLevel() {
-		SceneManager.LoadScene("Game");
+		SceneManager.LoadScene("stage_green");
 	}
 	
 	public void Pause() {
@@ -139,7 +204,15 @@ public class GameController : MonoBehaviour {
 		pauseMenu.SetActive(false);
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = false;
-		this.game_gameState = 1;
+		if (game_spawnroom == 0 && game_started == 1) {
+			this.game_gameState = 1;
+		}
+		if (game_spawnroom == 1 && game_started == 0) {
+			this.game_gameState = 0;
+		}
+		if (game_spawnroom == 0 && game_started == 0) {
+			this.game_gameState = 0;
+		}
 		Time.timeScale = 1;
 	}
 	
@@ -152,8 +225,9 @@ public class GameController : MonoBehaviour {
 	
 	private void spawnEnemies() {
 		GameObject[] game_enemyArray = new GameObject[] { enemy1, enemy2, enemy3, enemy4 };
-		for (int i = 0; i < this.game_enemyTotal; i++)
-			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-20, 20), 1, Random.Range(-20, 20)), Quaternion.identity);
+		for (int i = 0; i < this.game_enemyTotal; i++) {
+			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-20, 20), 5, Random.Range(-20, 20)), Quaternion.identity);
+		}
 	}
 	
 }

@@ -11,16 +11,13 @@ public class PlayerController : MonoBehaviour {
 	
 	[SerializeField] public GameObject ability1_icon;
 	[SerializeField] public GameObject ability2_icon;
-	[SerializeField] public GameObject ability3_icon;
+	[SerializeField] public GameObject[] ability3_icon = {};
 	[SerializeField] public GameObject ability1_color;
 	[SerializeField] public GameObject ability2_color;
 	[SerializeField] public GameObject ability3_color;
 	
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject powerup_prefab_bombs;
-	
-	[SerializeField] private GameObject hitMarker;
-	[SerializeField] private GameObject bulletProjectile;
 	
 	[SerializeField] private GameObject audio_errorSound;
 	[SerializeField] private GameObject audio_damagedSound;
@@ -37,6 +34,9 @@ public class PlayerController : MonoBehaviour {
     private float nextFire1 = 0.0F;
 	private float fireRate2 = 3.0F;
     private float nextFire2 = 0.0F;
+	
+	private float powerup_fireRate = 10.0F;
+    private float powerup_nextFire = 0.0F;
 	
 	private AudioSource weapon1Sound;
 	private AudioSource weapon2Sound;
@@ -90,14 +90,14 @@ public class PlayerController : MonoBehaviour {
 			
         }
 		
-		if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > this.nextFire1) {
+		if(Input.GetKey(KeyCode.Mouse0) && Time.time > this.nextFire1) {
 			this.nextFire1 = Time.time + this.fireRate1;
 			//weaponFlash.SetActive(true);
 			//flashTime = Time.time;
 			primaryFire();
 		}
 		
-		if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time > this.nextFire2) {
+		if(Input.GetKey(KeyCode.Mouse1) && Time.time > this.nextFire2) {
 			this.nextFire2 = Time.time + this.fireRate2;
 			//weaponFlash.SetActive(true);
 			//flashTime = Time.time;
@@ -121,36 +121,50 @@ public class PlayerController : MonoBehaviour {
 			ability2_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
 			ability2_color.GetComponent<Image>().color = new Color32(255,255,255,150);
 		}
+		
+		if (Time.time > this.powerup_nextFire) { 
+			foreach (GameObject ability_icon in ability3_icon) {
+				ability_icon.GetComponent<Image>().color = new Color32(255,255,255,255);
+			}
+			ability3_color.GetComponent<Image>().color = new Color32(255,255,255,255);
+		} 
+		if (Time.time < this.powerup_nextFire) { 
+			foreach (GameObject ability_icon in ability3_icon) {
+				ability_icon.GetComponent<Image>().color = new Color32(255,255,255,150);
+			}
+			ability3_color.GetComponent<Image>().color = new Color32(255,255,255,150);
+		}
 
-		if(Input.GetKeyDown(KeyCode.Q)) {
+		if(Input.GetKeyDown(KeyCode.Q) && Time.time > this.powerup_nextFire) {
 
 			if (gameController.player_powerupEquip == 0) {
 				Debug.Log("[DEBUG] player_powerupEquip == 0");
 				gameController.errorSound.Play();
-			}
-			
-			if (gameController.player_powerupEquip == 1) {
-				Debug.Log("[DEBUG] player_powerupEquip == 1");
-			}
-			
-			if (gameController.player_powerupEquip == 2) {
-				Debug.Log("[DEBUG] player_powerupEquip == 2");
-				if (turret_placed == 0) {
-					player_turret = Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
-					turret_placed = 1;
-				} else if (turret_placed == 1) {
-					player_turret.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
+			} else {
+				this.powerup_nextFire = Time.time + this.powerup_fireRate;
+				if (gameController.player_powerupEquip == 1) {
+					Debug.Log("[DEBUG] player_powerupEquip == 1");
+					controller.enabled = false;
+					this.transform.position = new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40));
+					controller.enabled = true;
 				}
-			}
-			
-			if (gameController.player_powerupEquip == 3) {
-				Debug.Log("[DEBUG] player_powerupEquip == 3");
-			}
-			
-			if (gameController.player_powerupEquip == 4) {
-				Debug.Log("[DEBUG] player_powerupEquip == 4");
-				for (int i = 0; i < 10; i++){
-					Instantiate(powerup_prefab_bombs, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
+				if (gameController.player_powerupEquip == 2) {
+					Debug.Log("[DEBUG] player_powerupEquip == 2");
+					if (turret_placed == 0) {
+						player_turret = Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
+						turret_placed = 1;
+					} else if (turret_placed == 1) {
+						player_turret.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
+					}
+				}
+				if (gameController.player_powerupEquip == 3) {
+					Debug.Log("[DEBUG] player_powerupEquip == 3");
+				}
+				if (gameController.player_powerupEquip == 4) {
+					Debug.Log("[DEBUG] player_powerupEquip == 4");
+					for (int i = 0; i < 10; i++){
+						Instantiate(powerup_prefab_bombs, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
+					}
 				}
 			}
 			

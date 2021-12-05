@@ -20,8 +20,8 @@ public class StatboostController : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.E)) {
 				gameController.pickupSound.Play();
 				if (statboostID == 1) { //Health
-					gameController.player_currentHealth += 25;
-					gameController.player_maxHealth += 25;
+					gameController.player_currentHealth += 50;
+					gameController.player_maxHealth += 10;
 					if (gameController.player_currentHealth > gameController.player_maxHealth) {
 						gameController.player_currentHealth = gameController.player_maxHealth;
 					}

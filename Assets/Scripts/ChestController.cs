@@ -7,6 +7,7 @@ public class ChestController : MonoBehaviour {
 	
 	[SerializeField] public GameObject chestPrice;
 	[SerializeField] public GameObject chestHUD;
+	[SerializeField] private int chestID; // ID: 1 = statusboosts // ID: 2 = abilityitems
 	
 	private GameController gameController;
 	private GameObject targetPlayer;
@@ -38,15 +39,18 @@ public class ChestController : MonoBehaviour {
 	}
 	
     void LateUpdate() {
-        
-		chestPrice.GetComponent<UnityEngine.TextMesh>().text = "" + gameController.game_chestPrices;
-		
+        if (chestID == 1) {
+			chestPrice.GetComponent<UnityEngine.TextMesh>().text = "" + gameController.game_chestPrices;
+		}
+		if (chestID == 2) {
+			chestPrice.GetComponent<UnityEngine.TextMesh>().text = "" + gameController.game_chestPrices2;
+		}
     }
 	
 	private void OnTriggerEnter(Collider other){
 		
 		if (other.gameObject.tag == "obstacle_water") {
-			this.transform.position = new Vector3(Random.Range(-45, 45), 5, Random.Range(-45, 45));
+			this.transform.position = new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40));
         }
 		
 	}
@@ -60,11 +64,22 @@ public class ChestController : MonoBehaviour {
     }
 	
 	private void openChest() {
-		GameObject[] game_chestArray = new GameObject[] { gameController.powerup1, gameController.powerup2, gameController.powerup3, gameController.powerup4 };
-		Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z), Quaternion.identity);
-		gameController.game_coins -= gameController.game_chestPrices;
-		gameController.game_chestPrices = (int)(gameController.game_chestPrices * 1.5);
-		Destroy(gameObject);
+		if (chestID == 1) {
+			GameObject[] game_chestArray = new GameObject[] { gameController.statboost1, gameController.statboost1, gameController.statboost1 };
+			Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z), Quaternion.identity);
+			gameController.game_coins -= gameController.game_chestPrices;
+			gameController.game_chestPrices = (int)(gameController.game_chestPrices * 1.5);
+			Instantiate(gameController.statboost_chest, new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+			Destroy(gameObject);
+		}
+		if (chestID == 2) {
+			GameObject[] game_chestArray = new GameObject[] { gameController.powerup1, gameController.powerup2, gameController.powerup3, gameController.powerup4 };
+			Instantiate(game_chestArray[Random.Range(0, game_chestArray.Length)], new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z), Quaternion.identity);
+			gameController.game_coins -= gameController.game_chestPrices2;
+			gameController.game_chestPrices2 = (int)(gameController.game_chestPrices2 * 1.5);
+			Instantiate(gameController.statboost_chest, new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+			Destroy(gameObject);
+		}
 	}
 	
 }

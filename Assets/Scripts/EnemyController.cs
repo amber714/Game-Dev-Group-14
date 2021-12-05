@@ -48,6 +48,13 @@ public class EnemyController : MonoBehaviour {
 			
         }
 		
+		if (other.gameObject.tag == "Explosion") {
+			
+			Destroy(other.gameObject);
+			this.enemy_currentHealth -= 30;
+			
+        }
+		
 	}
 	
 }

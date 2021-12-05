@@ -8120,11 +8120,15 @@ MonoBehaviour:
   powerup2: {fileID: 3087191270467549507, guid: 7c3bf6dc7486f9041897ba1ba1aeb2a4, type: 3}
   powerup3: {fileID: 4813551090632906675, guid: 28759b47959129342b373fd449d7a532, type: 3}
   powerup4: {fileID: 995067788784776046, guid: 88ff6b79c7080354b8c04fb737a28b81, type: 3}
+  statboost1: {fileID: 1734223035694404420, guid: 823919a904e3f4a47b27ee540c6a18a3, type: 3}
+  statboost2: {fileID: 1734223035694404420, guid: bfb2c6b16c2b6a745b646ba1cd682ad6, type: 3}
+  statboost3: {fileID: 1734223035694404420, guid: c6d91d271a102dc439cb7833176862ab, type: 3}
   powerup1_icon: {fileID: 286162158}
   powerup2_icon: {fileID: 318799821}
   powerup3_icon: {fileID: 134135389}
   powerup4_icon: {fileID: 1119615808}
-  powerup_chest: {fileID: 7196717962219082256, guid: c6c0d1ce8c162ae4f8f59fbac5e5ae9b, type: 3}
+  statboost_chest: {fileID: 7196717962219082256, guid: c6c0d1ce8c162ae4f8f59fbac5e5ae9b, type: 3}
+  powerup_chest: {fileID: 7196717962219082256, guid: cf1621e3f03f0b947a8933de4cef1742, type: 3}
   waveText: {fileID: 468186667}
   enemyText: {fileID: 1456888921}
   coinsText: {fileID: 1217339694}
@@ -8146,7 +8150,8 @@ MonoBehaviour:
   spawnMusic: {fileID: 1301272786}
   game_coins: 0
   game_wave: 1
-  game_chestPrices: 25
+  game_chestPrices: 20
+  game_chestPrices2: 40
   player_currentHealth: 100
   player_maxHealth: 100
   player_speed: 5
@@ -12748,6 +12753,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 29794871}
     - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_color
+      value: 
+      objectReference: {fileID: 1454336199}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
       propertyPath: gameController
       value: 
       objectReference: {fileID: 1399530838}
@@ -12783,6 +12792,26 @@ PrefabInstance:
       propertyPath: powerup_prefab_turret
       value: 
       objectReference: {fileID: 7400423168223872106, guid: 55db015d4fbb47e41bbfe6ee3f12a221, type: 3}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_icon.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_icon.Array.data[0]
+      value: 
+      objectReference: {fileID: 286162158}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_icon.Array.data[1]
+      value: 
+      objectReference: {fileID: 318799821}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_icon.Array.data[2]
+      value: 
+      objectReference: {fileID: 134135389}
+    - target: {fileID: 2118116130873205883, guid: d935e75d5695849488428200d4b95bc6, type: 3}
+      propertyPath: ability3_icon.Array.data[3]
+      value: 
+      objectReference: {fileID: 1119615808}
     - target: {fileID: 2118116131661247117, guid: d935e75d5695849488428200d4b95bc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.67

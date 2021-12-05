@@ -16,11 +16,16 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public GameObject powerup3;
 	[SerializeField] public GameObject powerup4;
 	
+	[SerializeField] public GameObject statboost1;
+	[SerializeField] public GameObject statboost2;
+	[SerializeField] public GameObject statboost3;
+	
 	[SerializeField] public GameObject powerup1_icon;
 	[SerializeField] public GameObject powerup2_icon;
 	[SerializeField] public GameObject powerup3_icon;
 	[SerializeField] public GameObject powerup4_icon;
 	
+	[SerializeField] public GameObject statboost_chest;
 	[SerializeField] public GameObject powerup_chest;
 	
 	[SerializeField] public Text waveText;
@@ -48,7 +53,8 @@ public class GameController : MonoBehaviour {
 	
 	public int game_coins;
 	public int game_wave = 1;
-	public int game_chestPrices = 25;
+	public int game_chestPrices = 20;
+	public int game_chestPrices2 = 40;
 	
 	public int player_currentHealth = 100;
 	public int player_maxHealth = 100;
@@ -86,7 +92,11 @@ public class GameController : MonoBehaviour {
 		enemyText.text = "";
 		
 		for (int i = 0; i < 8; i++) {
-			Instantiate(powerup_chest, new Vector3(Random.Range(-45, 45), 5, Random.Range(-45, 45)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+			Instantiate(statboost_chest, new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			Instantiate(powerup_chest, new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.Euler(new Vector3(0,Random.Range(0, 360),0)));
 		}
 		
 		spawnMusic.Play();
@@ -226,7 +236,7 @@ public class GameController : MonoBehaviour {
 	private void spawnEnemies() {
 		GameObject[] game_enemyArray = new GameObject[] { enemy1, enemy2, enemy3, enemy4 };
 		for (int i = 0; i < this.game_enemyTotal; i++) {
-			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-20, 20), 5, Random.Range(-20, 20)), Quaternion.identity);
+			Instantiate(game_enemyArray[Random.Range(0, game_enemyArray.Length)], new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40)), Quaternion.identity);
 		}
 	}
 	

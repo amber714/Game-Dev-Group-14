@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 	
-	[SerializeField] private float enemy_currentHealth;
+	[SerializeField] public float enemy_currentHealth;
 	[SerializeField] private float enemy_maxHealth;
 	[SerializeField] private int enemy_value;
 	[SerializeField] private GameObject enemy_healthBar;

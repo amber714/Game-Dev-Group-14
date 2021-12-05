@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombCode : MonoBehaviour
 {
+	[SerializeField] private GameObject particleEffect;
 	[SerializeField] private GameObject explosion;
 	private float timeToLive = 3.0F;
     private float createTime;
@@ -19,6 +20,9 @@ public class BombCode : MonoBehaviour
     void Update()
     {
 		if (Time.time >= createTime + timeToLive){
+			Debug.Log("Bomb Effect created!");
+			GameObject effectInstance = (GameObject)Instantiate(particleEffect, transform.position, transform.rotation);
+			Destroy(effectInstance, 2f);
 			Debug.Log("Bomb created!");
 			Instantiate(explosion, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
 			Destroy(gameObject);

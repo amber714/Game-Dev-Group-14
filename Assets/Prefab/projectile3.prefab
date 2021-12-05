@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71fd987b73b0ee40b38ca967dab5aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleEffect: {fileID: 7967446256959750617, guid: 437b3ec3a74ca1b4d861393f226a4c2d, type: 3}
   explosion: {fileID: 6030314590199144162, guid: 58a35909c61faa84691e210b65d210e8, type: 3}
 --- !u!135 &3340625379514092007
 SphereCollider:

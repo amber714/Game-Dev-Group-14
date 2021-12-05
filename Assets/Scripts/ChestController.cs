@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChestController : MonoBehaviour {
 	
+	[SerializeField] public GameObject chestPrice;
+	
+	private GameController gameController;
+	
     void Start() {
         
+		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+		
     }
 	
-    void Update() {
+    void LateUpdate() {
         
+		chestPrice.GetComponent<UnityEngine.TextMesh>().text = "" + gameController.game_chestPrices;
+		
     }
 	
 	private void OnTriggerEnter(Collider other){
@@ -19,5 +28,13 @@ public class ChestController : MonoBehaviour {
         }
 		
 	}
+	
+	void OnCollisionEnter(Collision collision) {
+		
+		if (collision.gameObject.tag == "Enemy") {
+			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), this.GetComponent<Collider>());
+        }
+		
+    }
 	
 }

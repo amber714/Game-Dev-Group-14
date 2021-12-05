@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour {
 	
 	public int game_coins;
 	public int game_wave = 1;
+	public int game_chestPrices = 25;
 	
 	public int player_currentHealth = 100;
 	public int player_maxHealth = 100;

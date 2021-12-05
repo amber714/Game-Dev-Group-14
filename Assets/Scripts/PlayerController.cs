@@ -215,8 +215,8 @@ public class PlayerController : MonoBehaviour {
 			AddImpact(localVelocity, 100);
 			if (currentEffect == 0) {
 				currentEffect = collision.gameObject.GetComponent<EnemyController>().enemy_effect;
+				StartCoroutine("enemyEffect");
 			}
-			StartCoroutine("enemyEffect");
         }
     }
 	

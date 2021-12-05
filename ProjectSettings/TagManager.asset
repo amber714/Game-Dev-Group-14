@@ -16,6 +16,7 @@ TagManager:
   - UI
   - portal_start
   - obstacle_water
+  - obstacle_bridge
   layers:
   - Default
   - TransparentFX

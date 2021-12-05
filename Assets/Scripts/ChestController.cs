@@ -61,6 +61,10 @@ public class ChestController : MonoBehaviour {
 			Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), this.GetComponent<Collider>());
         }
 		
+		if (collision.gameObject.tag == "obstacle_bridge") {
+			this.transform.position = new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40));
+        }
+		
     }
 	
 	private void openChest() {

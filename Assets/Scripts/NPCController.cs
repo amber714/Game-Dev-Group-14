@@ -20,12 +20,14 @@ public class NPCController : MonoBehaviour {
 
     void Update() {
         
-		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 10) {
+		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 15) {
 			var lookPos = targetPlayer.transform.position - this.transform.position;
 			lookPos.y = 0;
 			var rotation = Quaternion.LookRotation(lookPos);
 			transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, Time.deltaTime * 10);
-			
+		}
+		
+		if (Vector3.Distance(targetPlayer.transform.position, this.transform.position) < 5) {
 			if(Input.GetKeyDown(KeyCode.E) && talking == 0) {
 				interactNPC();
 			}

@@ -81,34 +81,6 @@ public class PlayerController : MonoBehaviour {
 		
 		CharacterController controller = GetComponent<CharacterController>();
 		
-		if (other.gameObject.tag == "powerup_random") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 1;
-				Destroy(other.gameObject);
-			}
-        }
-		
-		if (other.gameObject.tag == "powerup_tower") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 2;
-				Destroy(other.gameObject);
-			}
-        }
-		
-		if (other.gameObject.tag == "powerup_speed") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 3;
-				Destroy(other.gameObject);
-			}
-        }
-		
-		if (other.gameObject.tag == "powerup_bombs") {
-			if (gameController.player_powerupEquip == 0) {
-				gameController.player_powerupEquip = 4;
-				Destroy(other.gameObject);
-			}
-        }
-		
 		if (other.gameObject.tag == "portal_start") {
 			Debug.Log("[DEBUG] portal_start collision");
 			controller.enabled = false;

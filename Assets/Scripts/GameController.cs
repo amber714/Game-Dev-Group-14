@@ -6,34 +6,34 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 	
-	[SerializeField] private GameObject enemy1;
-	[SerializeField] private GameObject enemy2;
-	[SerializeField] private GameObject enemy3;
-	[SerializeField] private GameObject enemy4;
+	[SerializeField] public GameObject enemy1;
+	[SerializeField] public GameObject enemy2;
+	[SerializeField] public GameObject enemy3;
+	[SerializeField] public GameObject enemy4;
 	
-	[SerializeField] private GameObject powerup1;
-	[SerializeField] private GameObject powerup2;
-	[SerializeField] private GameObject powerup3;
-	[SerializeField] private GameObject powerup4;
+	[SerializeField] public GameObject powerup1;
+	[SerializeField] public GameObject powerup2;
+	[SerializeField] public GameObject powerup3;
+	[SerializeField] public GameObject powerup4;
 	
-	[SerializeField] private GameObject powerup1_icon;
-	[SerializeField] private GameObject powerup2_icon;
-	[SerializeField] private GameObject powerup3_icon;
-	[SerializeField] private GameObject powerup4_icon;
+	[SerializeField] public GameObject powerup1_icon;
+	[SerializeField] public GameObject powerup2_icon;
+	[SerializeField] public GameObject powerup3_icon;
+	[SerializeField] public GameObject powerup4_icon;
 	
-	[SerializeField] private GameObject powerup_chest;
+	[SerializeField] public GameObject powerup_chest;
 	
-	[SerializeField] private Text waveText;
-	[SerializeField] private Text enemyText;
-	[SerializeField] private Text coinsText;
-	[SerializeField] private Text healthText;
+	[SerializeField] public Text waveText;
+	[SerializeField] public Text enemyText;
+	[SerializeField] public Text coinsText;
+	[SerializeField] public Text healthText;
 	
 	[SerializeField] public GameObject pauseMenu;
 	[SerializeField] public GameObject failMenu;
 	[SerializeField] public GameObject conversationHUD;
 	[SerializeField] public Text conversationText;
 	
-	[SerializeField] private GameObject player;
+	[SerializeField] public GameObject player;
 	[SerializeField] public GameObject startPoint;
 	
 	public int game_coins;
@@ -119,6 +119,43 @@ public class GameController : MonoBehaviour {
 		
 		if (player_currentHealth <= 0) {
 			GameOver();
+		}
+		
+		if (player_powerupEquip == 0) {
+			powerup1_icon.SetActive(false);
+			powerup2_icon.SetActive(false);
+			powerup3_icon.SetActive(false);
+			powerup4_icon.SetActive(false);
+		} else {
+		
+			if (player_powerupEquip == 1) {
+				powerup1_icon.SetActive(true);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(false);
+			}
+		
+			if (player_powerupEquip == 2) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(true);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(false);
+			}
+		
+			if (player_powerupEquip == 3) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(true);
+				powerup4_icon.SetActive(false);
+			}
+			
+			if (player_powerupEquip == 4) {
+				powerup1_icon.SetActive(false);
+				powerup2_icon.SetActive(false);
+				powerup3_icon.SetActive(false);
+				powerup4_icon.SetActive(true);
+			}
+		
 		}
 		
 	}

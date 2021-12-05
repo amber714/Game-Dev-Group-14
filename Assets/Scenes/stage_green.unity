@@ -5840,8 +5840,9 @@ MonoBehaviour:
   conversationText: {fileID: 1290835536}
   player: {fileID: 1982474068}
   startPoint: {fileID: 114425318}
-  game_coins: 0
+  game_coins: 100
   game_wave: 1
+  game_chestPrices: 25
   player_currentHealth: 100
   player_maxHealth: 100
   player_speed: 5

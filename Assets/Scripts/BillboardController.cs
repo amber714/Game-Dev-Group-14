@@ -20,7 +20,7 @@ public class BillboardController : MonoBehaviour{
         this.transform.rotation = game_mainCamera.transform.rotation;
 		this.transform.rotation = Quaternion.Euler(0f, this.transform.rotation.eulerAngles.y, 0f);
 		
-		if (Vector3.Distance(billboard_targetPlayer.transform.position, this.transform.position) < 3) {
+		if (Vector3.Distance(billboard_targetPlayer.transform.position, this.transform.position) < 5) {
 			proximityHUD.SetActive(true);
 		} else {
 			proximityHUD.SetActive(false);

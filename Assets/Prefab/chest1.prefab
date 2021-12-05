@@ -535,6 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestPrice: {fileID: 2879612549256030297}
+  chestHUD: {fileID: 6430335215399742403}
 --- !u!65 &4473247738502481545
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public AudioSource damagedSound;
 	[SerializeField] public AudioSource pickupSound;
 	[SerializeField] public AudioSource popSound;
+	[SerializeField] public AudioSource jumpSound;
 	[SerializeField] public AudioSource arenaMusic;
 	[SerializeField] public AudioSource spawnMusic;
 	

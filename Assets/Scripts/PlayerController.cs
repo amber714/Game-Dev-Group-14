@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject audio_weapon2Sound;
 	
 	private int control_enabled = 1;
+	private int turret_placed = 0;
 	private int camera_degrees = 10;
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController controller;
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 	
 	private AudioSource weapon1Sound;
 	private AudioSource weapon2Sound;
+	
+	private GameObject player_turret;
 	
 	float mass = 3.0F; // defines the character mass
     Vector3 impact = Vector3.zero;
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour {
 				moveDirection = transform.TransformDirection(moveDirection);
 				moveDirection *= gameController.player_speed;
 				if (Input.GetButton("Jump")){
-					//jumpSound.Play();
+					gameController.jumpSound.Play();
 					moveDirection.y = gameController.player_jump;
 				}
 			}
@@ -132,7 +135,12 @@ public class PlayerController : MonoBehaviour {
 			
 			if (gameController.player_powerupEquip == 2) {
 				Debug.Log("[DEBUG] player_powerupEquip == 2");
-				Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
+				if (turret_placed == 0) {
+					player_turret = Instantiate(powerup_prefab_turret, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 3, this.gameObject.transform.position.z), Quaternion.identity);
+					turret_placed = 1;
+				} else if (turret_placed == 1) {
+					player_turret.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
+				}
 			}
 			
 			if (gameController.player_powerupEquip == 3) {

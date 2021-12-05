@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour {
 	private int camera_degrees = 10;
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController controller;
+	
 	private float fireRate1 = 0.5F;
     private float nextFire1 = 0.0F;
+	private float fireRate2 = 0.5F;
+    private float nextFire2 = 0.0F;
 	
 	private AudioSource errorSound;
 	private AudioSource weapon1Sound;
@@ -68,10 +71,16 @@ public class PlayerController : MonoBehaviour {
 		
 		if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > this.nextFire1) {
 			this.nextFire1 = Time.time + this.fireRate1;
-			weapon1Sound.Play();
 			//weaponFlash.SetActive(true);
 			//flashTime = Time.time;
 			primaryFire();
+		}
+		
+		if(Input.GetKeyDown(KeyCode.Mouse1) && Time.time > this.nextFire2) {
+			this.nextFire2 = Time.time + this.fireRate2;
+			//weaponFlash.SetActive(true);
+			//flashTime = Time.time;
+			secondaryFire();
 		}
 
 		if(Input.GetKeyDown(KeyCode.Q)) {
@@ -120,8 +129,8 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 	
-	void primaryFire()
-	{
+	void primaryFire() {
+		weapon1Sound.Play();
 		if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
 			Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
 			Debug.Log(hitInfo.collider.name + Time.time);
@@ -130,7 +139,26 @@ public class PlayerController : MonoBehaviour {
 				hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
 			}
 		}
-
+		
+	}
+	
+	void secondaryFire() {
+		StartCoroutine("secondaryBurst");
+	}
+	
+	IEnumerator secondaryBurst() {
+		for (int i = 0; i < 5; i++) {
+			weapon1Sound.Play();
+			if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hitInfo, 50)){
+				Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * 50, Color.white, 0.5f, true); 
+				Debug.Log(hitInfo.collider.name + Time.time);
+				if (hitInfo.collider.tag == "Enemy") {
+					Debug.Log("Enemy shot!");
+					hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
+				}
+			}
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 	
 }

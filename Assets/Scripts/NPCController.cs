@@ -42,7 +42,7 @@ public class NPCController : MonoBehaviour {
 		StartCoroutine("AutoType");
 	}
 	
-	IEnumerator AutoType () {
+	IEnumerator AutoType() {
 		foreach(string dialogue in npc_dialogue){
 			foreach(char character in dialogue.ToCharArray()){
 				gameController.conversationText.text += character;

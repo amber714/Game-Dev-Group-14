@@ -11,7 +11,8 @@ public class TitleScreen : MonoBehaviour
     }
     public void StartButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        // SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("stage_green");
     }
 
     public void returnButton()

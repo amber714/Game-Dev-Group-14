@@ -148,8 +148,10 @@ MonoBehaviour:
   enemy_currentHealth: 5
   enemy_maxHealth: 5
   enemy_value: 1
+  enemy_ID: 3
   enemy_effect: 1
   enemy_healthBar: {fileID: 1025459495686690718}
+  projectileEnemy: {fileID: 0}
   enemy_targetPlayer: {fileID: 0}
   gameController: {fileID: 0}
 --- !u!54 &4947527448521723149

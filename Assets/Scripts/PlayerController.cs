@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private GameObject powerup_prefab_turret;
 	[SerializeField] private GameObject turretEffect;
 	[SerializeField] private GameObject powerup_prefab_bombs;
+	[SerializeField] public GameObject hitMarker;
 	
 	[SerializeField] private GameObject audio_errorSound;
 	[SerializeField] private GameObject audio_damagedSound;
@@ -210,6 +211,12 @@ public class PlayerController : MonoBehaviour {
 			gameController.spawnMusic.Stop();
         }
 		
+		if (other.gameObject.tag == "EnemyProjectile") {
+			Destroy(other.gameObject);
+			gameController.damagedSound.Play();
+			gameController.player_currentHealth -= 5;
+        }
+		
 	}
 	
 	void OnCollisionEnter(Collision collision) {
@@ -237,6 +244,10 @@ public class PlayerController : MonoBehaviour {
 				Debug.Log("Enemy shot!");
 				hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
 			}
+			
+			if (hitInfo.collider.tag == "EnemyProjectile") {
+				Instantiate(hitMarker, new Vector3(hitInfo.transform.position.x, hitInfo.transform.position.y, hitInfo.transform.position.z), Quaternion.identity);
+			}
 		}
 		
 	}
@@ -255,6 +266,10 @@ public class PlayerController : MonoBehaviour {
 				if (hitInfo.collider.tag == "Enemy") {
 					Debug.Log("Enemy shot!");
 					hitInfo.collider.GetComponent<EnemyController>().enemy_currentHealth -= 5;
+				}
+				
+				if (hitInfo.collider.tag == "EnemyProjectile") {
+					Instantiate(hitMarker, new Vector3(hitInfo.transform.position.x, hitInfo.transform.position.y, hitInfo.transform.position.z), Quaternion.identity);
 				}
 			}
 			yield return new WaitForSeconds(0.1f);

@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour {
 		
 		projectileDelay = Random.Range(3.0F, 10.0F);
         projectileTime = Time.time;
-		summonDelay = Random.Range(3.0F, 5.0F);
+		summonDelay = Random.Range(3.0F, 10.0F);
         summonTime = Time.time;
         myRigidbody = GetComponent<Rigidbody>();
 		agent = GetComponent<NavMeshAgent>();
@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour {
 		if (enemy_ID == 2 && Time.time >= summonTime + summonDelay){
 			Instantiate(minionEnemy, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
 			summonTime = Time.time;
-			summonDelay = Random.Range(3.0F, 5.0F);
+			summonDelay = Random.Range(3.0F, 10.0F);
 			gameController.game_enemyRemaining += 1;
 		}
 		

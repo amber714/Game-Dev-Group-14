@@ -119,6 +119,7 @@ MonoBehaviour:
   enemy_effect: 0
   enemy_healthBar: {fileID: 1025459495686690718}
   projectileEnemy: {fileID: 5500031829221597301, guid: 6739c47b7e4f26e4d80e25abfb55b3ac, type: 3}
+  minionEnemy: {fileID: 0}
   enemy_targetPlayer: {fileID: 0}
   gameController: {fileID: 0}
 --- !u!54 &4947527448521723149
@@ -486,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7702055612064973115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.177, y: 0.21700001, z: 0.45}
+  m_LocalPosition: {x: -0.34, y: 0.449, z: 0.674}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 765840847149600843}
@@ -567,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8766282346060191502}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.177, y: 0.21700001, z: 0.45}
+  m_LocalPosition: {x: 0.34, y: 0.449, z: 0.674}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 765840847149600843}

@@ -11,19 +11,20 @@ public class TitleScreen : MonoBehaviour
     }
     public void StartButton()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("stage_green");
     }
 
     public void returnButton()
     {
-        SceneManager.LoadScene("titleScreen");
+        SceneManager.LoadScene("stage_title");
     }
 
 
 
     public static void GameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        ExitButton();
+        //SceneManager.LoadScene("GameOver");
     }
 
     public void ExitButton()

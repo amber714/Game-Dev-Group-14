@@ -17,6 +17,8 @@ TagManager:
   - portal_start
   - obstacle_water
   - obstacle_bridge
+  - EnemyProjectile
+  - hitMarker
   layers:
   - Default
   - TransparentFX

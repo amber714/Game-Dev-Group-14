@@ -35,5 +35,9 @@ public class EnemyProjectileCode : MonoBehaviour
 		if (other.gameObject.tag == "Explosion") {
 			Destroy(gameObject);
         }
+		if (other.gameObject.tag == "hitMarker") {
+			Destroy(gameObject);
+			Destroy(other.gameObject);
+        }
 	}
 }

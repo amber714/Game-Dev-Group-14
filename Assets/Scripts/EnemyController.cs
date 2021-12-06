@@ -13,8 +13,11 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField] private GameObject enemy_healthBar;
 	
 	[SerializeField] private GameObject projectileEnemy;
+	[SerializeField] private GameObject minionEnemy;
 	private float projectileDelay;
     private float projectileTime;
+	private float summonDelay;
+    private float summonTime;
 	
 	public GameObject enemy_targetPlayer;
 	public GameController gameController;
@@ -27,6 +30,8 @@ public class EnemyController : MonoBehaviour {
 		
 		projectileDelay = Random.Range(3.0F, 10.0F);
         projectileTime = Time.time;
+		summonDelay = Random.Range(3.0F, 5.0F);
+        summonTime = Time.time;
         myRigidbody = GetComponent<Rigidbody>();
 		agent = GetComponent<NavMeshAgent>();
 		enemy_targetPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -43,6 +48,13 @@ public class EnemyController : MonoBehaviour {
 			gameController.game_enemyRemaining = gameController.game_enemyRemaining - 1;
 			gameController.game_coins += enemy_value;
 			Destroy(gameObject);
+		}
+		
+		if (enemy_ID == 2 && Time.time >= summonTime + summonDelay){
+			Instantiate(minionEnemy, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+			summonTime = Time.time;
+			summonDelay = Random.Range(3.0F, 5.0F);
+			gameController.game_enemyRemaining += 1;
 		}
 		
 		if (enemy_ID == 4 && Time.time >= projectileTime + projectileDelay){
@@ -67,6 +79,10 @@ public class EnemyController : MonoBehaviour {
 			Destroy(other.gameObject);
 			this.enemy_currentHealth -= 30;
 			
+        }
+		
+		if (other.gameObject.tag == "obstacle_water") {
+			this.transform.position = new Vector3(Random.Range(-40, 40), 5, Random.Range(-40, 40));
         }
 		
 	}

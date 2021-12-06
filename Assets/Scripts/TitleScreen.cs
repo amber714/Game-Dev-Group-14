@@ -22,7 +22,7 @@ public class TitleScreen : MonoBehaviour
     {
         SceneManager.LoadScene("stage_title");
     }
-
+     
 
 
     public static void GameOver()

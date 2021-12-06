@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8549311108125024500}
-  - component: {fileID: 3954603965185954934}
+  - component: {fileID: 6767515754820154616}
   - component: {fileID: -106877756356764152}
   m_Layer: 0
   m_Name: explosion
@@ -128,7 +128,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3954603965185954934
+--- !u!114 &6767515754820154616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6030314590199144162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85915318df75d84291d88c6704628c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9640cb39fbd2ffa4296c7680261d485a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &-106877756356764152
@@ -196,7 +196,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

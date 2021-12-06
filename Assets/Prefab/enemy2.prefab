@@ -146,7 +146,11 @@ MonoBehaviour:
   enemy_currentHealth: 40
   enemy_maxHealth: 40
   enemy_value: 5
+  enemy_ID: 2
+  enemy_effect: 0
   enemy_healthBar: {fileID: 1025459495686690718}
+  projectileEnemy: {fileID: 0}
+  minionEnemy: {fileID: 2773370798447806278, guid: 5dae1e67269cbe7498431d3cf3bead06, type: 3}
   enemy_targetPlayer: {fileID: 0}
   gameController: {fileID: 0}
 --- !u!54 &4947527448521723149
